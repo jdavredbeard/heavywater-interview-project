@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<p>Hello, Heavywater</p>
+	<p>Lambda endpoint: {{lambdapath}}</p>
+	<br>
+	<label>Input words to classify:</label>
+	<br>	
+	<input id="words" type="text" name="words"><br>
+	<button type="button" onclick="getPrediction()">Get Prediction</button>
+	<div id=prediction>
+		<p>Prediction goes here</p>	
+	</div>
+	<script>
+		function getPrediction() {
+		  let words = document.getElementById("words").value;
+		  let xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		     document.getElementById("prediction").innerHTML = this.responseText;
+		    }
+		  };
+		  let lambdapath = "{{lambdapath}}";
+		  lambdapath = lambdapath.substring(0,lambdapath.length - 1)
+		  xhttp.open("GET", lambdapath + "?words=" + words, true);
+		  xhttp.send();
+		}
+	</script>
+</body>
+</html>
+
