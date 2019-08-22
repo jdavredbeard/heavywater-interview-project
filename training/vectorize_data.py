@@ -51,7 +51,7 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     x_val = vectorizer.transform(val_texts)
 
     # Pickle vectorizer for use in webapp
-    pickle_out = open("pickles/vectorizer.pickle","wb")
+    pickle_out = open("../prediction/pickles/vectorizer.pickle","wb")
     pickle.dump(vectorizer,pickle_out)
     pickle_out.close()
 
@@ -62,7 +62,7 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     x_val = selector.transform(x_val).astype('float32')
 
     #pickle selector for use in webapp
-    pickle_out = open("pickles/selector.pickle","wb")
+    pickle_out = open("../prediction/pickles/selector.pickle","wb")
     pickle.dump(selector,pickle_out)
     pickle_out.close()
     return x_train, x_val

@@ -13,10 +13,10 @@ import build_model
 def train_ngram_model(data,
                       learning_rate=1e-3,
                       epochs=1000,
-                      batch_size=128,
+                      batch_size=512,
                       layers=2,
                       units=64,
-                      dropout_rate=0.2):
+                      dropout_rate=0.3):
     """Trains n-gram model on the given dataset.
 
     # Arguments
@@ -85,7 +85,7 @@ def train_ngram_model(data,
             acc=history['val_acc'][-1], loss=history['val_loss'][-1]))
 
     # Save model.
-    model.save('prediction/mortgage_doc_mlp_model.h5')
+    model.save('../prediction/model/mortgage_doc_mlp_model.h5')
 
     return history['val_acc'][-1], history['val_loss'][-1]
 
@@ -93,7 +93,7 @@ def train_ngram_model(data,
 ################
 
 # read data from csv into dataframe
-df = pandas.read_csv('../shuffled-full-set-hashed.csv',
+df = pandas.read_csv('../../shuffled-full-set-hashed.csv',
 					names=['label','words'])
 
 # filter out incomplete samples
@@ -116,7 +116,7 @@ train_labels_ints = le.transform(train_labels)
 test_labels_ints = le.transform(test_labels)
 
 # pickle LabelEncoder for use in endpoint to decode classes
-pickle_out = open("pickles/label_encoder.pickle","wb")
+pickle_out = open("../prediction/pickles/label_encoder.pickle","wb")
 pickle.dump(le,pickle_out)
 pickle_out.close()
 

@@ -1,7 +1,7 @@
 __pycache__
 notneeded
 prediction/__pycache__
-prediction/mortgage_doc_mlp_model.h5
+prediction/model
 prediction/pickles
 prediction/virt
 .DS_STORE

@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>hello HeavyWater</title>
+    </head>
+    <body>
+        <form action='' method='post'>
+        	{{ form.hidden_tag() }}
+        	<p>
+        		{{ form.query.label }}<br>
+        		{{ form.query(size=100) }}
+        	</p>
+        	<p>
+        		{{ form.submit() }}
+        	</p>
+
+        </form>
+        <br>
+        
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <br>
+    </body>
+</html>
