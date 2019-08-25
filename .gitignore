@@ -6,3 +6,6 @@ prediction/pickles
 prediction/virt
 .DS_STORE
 prediction/.aws-sam
+.idea
+training/logs
+training/virt
