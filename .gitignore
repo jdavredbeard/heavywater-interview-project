@@ -8,3 +8,4 @@ prediction/virt
 prediction/.aws-sam
 .idea
 training/logs
+training/virt
