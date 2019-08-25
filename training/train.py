@@ -81,7 +81,6 @@ def train_ngram_model(data,
 
     # Print results.
     history = history.history
-    print(history.keys())
     print('Validation accuracy: {acc}, loss: {loss}'.format(
             acc=history['val_acc'][-1], loss=history['val_loss'][-1]))
 
