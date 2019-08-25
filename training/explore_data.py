@@ -132,6 +132,24 @@ def plot_class_distribution(labels):
     plt.xticks(idx, idx)
     plt.show()
 
+def plot_class_distribution_jd(labels, num_classes):
+    """Plots the class distribution.
+    # Arguments
+        labels: list, label values.
+            There should be at lease one sample for values in the
+            range (0, num_classes -1)
+    """
+    count_map = Counter(labels)
+    counts = [count_map[label] for label in count_map.keys()]
+    idx = np.arange(num_classes)
+    plt.bar(idx, counts, width=0.8, color='b')
+    plt.xlabel('Class')
+    plt.ylabel('Number of samples')
+    plt.title('Class distribution')
+    plt.xticks(idx, count_map.keys(), rotation = 45)
+    plt.tight_layout()
+    plt.show()
+
 def plot_num_words_per_sample_distribution(sample_texts):
     plt.hist([len(s.split()) for s in sample_texts])
     plt.xlabel('Number of words in a sample')

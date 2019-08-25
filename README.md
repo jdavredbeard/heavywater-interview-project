@@ -17,6 +17,18 @@ To reproduce the model:
 - `pip3 install -r requirements.txt` - install training dependencies
 - `python3 train.py` - cleans the data removing rows that are missing labels or words and trains a new model, which is saved to `../prediction/model` dir. Also saves pickles of label decoder, vectorizer, and selector objects needed later for making predictions to the `../prediction/pickles` dir
 
+Testing the model:
+
+The best accuracy over the whole dataset that I've been able to produce so far is about 87%. However, as the class distribution plot shown at the end of the training script illustrates, the class frequency is not evenly distributed, so the model will most likely be better at recognizing a BILL or POLICY CHANGE than an INTENT TO CANCEL NOTICE.
+Simple testing of the model seems to bear this out.
+
+- `cd` into prediction dir
+- `python3 -m venv virt` - create virtualenv
+- `source virt/bin/activate` - activate virtualenv
+- `pip3 install -r requirements.txt` - install webapp/prediction dependencies
+- `python3 tests.py` - run tests against `get_prediction()`
+
+More thorough testing would include a larger sample of each document class to get an estimate of the accuracy of the model on each class.
 
 Framing the deployment problem:
 
@@ -24,12 +36,8 @@ As the code for making predictions requires large libraries and relatively large
 
 To reproduce the deployment:
 
-- `cd` into prediction dir
-- `python3 -m venv virt` - create virtualenv
-- `source virt/bin/activate` - activate virtualenv
-- `pip3 install -r requirements.txt` - install webapp/prediction dependencies
 - install eb cli - this is `brew install awsebcli` on mac
-- `eb init -p python-3.7 mortgage-doc-predictor --region us-east-1` - initializes new elastic beanstalk project
+- from `prediction` dir run `eb init -p python-3.7 mortgage-doc-predictor --region us-east-1` - initializes new elastic beanstalk project
 - `eb config` - this opens elastic beanstalk configs in an editor - change `InstanceType` to `r5.large` and `WSGIPath` to `app.py`
 - `eb create mortgage-doc-predictor-env` - begins creating of aws resources and deployment of app
 - `eb open` - once deployment is finished and ec2 is running and flask app is initialized, opens app in browser

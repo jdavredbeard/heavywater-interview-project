@@ -67,7 +67,7 @@ def train_ngram_model(data,
     # Create callback for early stopping on validation loss. If the loss does
     # not decrease in two consecutive tries, stop training.
     callbacks = [tf.keras.callbacks.EarlyStopping(
-        monitor='val_loss', patience=2)]
+        monitor='val_loss', patience=2), tf.keras.callbacks.TensorBoard()]
 
     # Train and validate model.
     history = model.fit(
@@ -81,6 +81,7 @@ def train_ngram_model(data,
 
     # Print results.
     history = history.history
+    print(history.keys())
     print('Validation accuracy: {acc}, loss: {loss}'.format(
             acc=history['val_acc'][-1], loss=history['val_loss'][-1]))
 
@@ -103,17 +104,22 @@ df = df.dropna()
 train_data = df[:50000]
 test_data = df[50001:]
 
+
 # convert data to work with train function
 train_labels = train_data['label'].tolist()
 train_words = numpy.array(train_data['words'])
 test_labels = test_data['label'].tolist()
 test_words = numpy.array(test_data['words'])
 
+# print array of classifications and show plot of classification frequency
+explore_data.plot_class_distribution_jd(train_labels, 14)
+
 # convert labels to integers
 le = preprocessing.LabelEncoder()
 le.fit(train_labels)
 train_labels_ints = le.transform(train_labels)
 test_labels_ints = le.transform(test_labels)
+
 
 # pickle LabelEncoder for use in endpoint to decode classes
 pickle_out = open("../prediction/pickles/label_encoder.pickle","wb")
@@ -123,3 +129,5 @@ pickle_out.close()
 
 # train model
 train_ngram_model(((train_words,train_labels_ints),(test_words,test_labels_ints)))
+
+
