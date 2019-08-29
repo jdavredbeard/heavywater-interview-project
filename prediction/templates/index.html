@@ -6,6 +6,7 @@
         <title>hello HeavyWater</title>
     </head>
     <body>
+    <div style="text-align:center">
         <form action='' method='post'>
         	{{ form.hidden_tag() }}
         	<p>
@@ -18,7 +19,7 @@
 
         </form>
         <br>
-        
+    </div>
         
         {% with messages = get_flashed_messages() %}
         {% if messages %}

@@ -49,6 +49,7 @@ def train_ngram_model(data,
     x_train, x_val = vectorize_data.ngram_vectorize(
         train_texts, train_labels, val_texts)
 
+
     # Create model instance.
     model = build_model.mlp_model(layers=layers,
                                   units=units,
